@@ -45,8 +45,18 @@ class SignupForm(FlaskForm):
                                  ('No-nonsense City Cop', 'cop'),
                                  ('Professional Rocket League Player', 'rocket'),
                                  ('Lonely Guy At A Diner', 'lonely'),
-                                 ('Pokemon Trainer', 'pokemon')])
+                                 ('Pokemon Trainer', 'pokemon'),
+                                 ('Desperate housewife', 'wife')])
     website = StringField('Website', validators=[URL()])
     birthday = DateField('Your Birthday')
     recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
+
+
+class StatusReport(FlaskForm):
+    """
+    Declare your status: infected, not infected, immune
+    """
+    status_not_infected = SubmitField('Not infected')
+    status_infected = SubmitField('Infected')
+    status_immune = SubmitField('Immune')
