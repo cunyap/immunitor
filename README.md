@@ -1,5 +1,5 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![License](https://img.shields.io/pypi/l/ansicolortags.svg)](https://github.com/cunyap/codevscovid19_app/blob/master/LICENSE)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/cunyap/codevscovid19_app/blob/master/LICENSE)
 
 # codevscovid19_app
 Test repo for our contribution
