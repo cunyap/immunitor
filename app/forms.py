@@ -60,3 +60,5 @@ class StatusReport(FlaskForm):
     status_not_infected = SubmitField('Not infected')
     status_infected = SubmitField('Infected')
     status_immune = SubmitField('Immune')
+
+

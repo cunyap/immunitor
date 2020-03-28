@@ -12,5 +12,8 @@ from wtforms.validators import (DataRequired,
                                 URL)
 
 
-class Typein_field(FlaskForm):
-    
+class TypeinField(FlaskForm):
+    email = StringField('E-mail: ', [
+        Email(message='Not a valid email address.'),
+        DataRequired()])
+    submit = SubmitField('Submit')
