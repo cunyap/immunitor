@@ -1,9 +1,8 @@
 import json
 from flask import url_for, render_template, redirect, make_response, request
 from flask import current_app as app
-#from .models import db, User
 from .forms import ContactForm, SignupForm, StatusReport, HiddenButton
-from .interactive_fields import TypeinField, ContributeMore, MoreInfo, KeepInTouch
+from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch
 from datetime import datetime as dt
 
 # @app.route('/')
@@ -41,18 +40,32 @@ def success():
                            template='success-template')
 
 
-@app.route('/email', methods=('GET','POST'))
-def email():
-    form = TypeinField()
+@app.route('/status', methods=('GET','POST'))
+def status():
+    form = Status()
     if form.validate_on_submit():
         if 'infected' in request.form:
             status = "infected"
+            render_template('status.html',
+                            form=form,
+                            template='form-template',
+                            status=1)
         elif 'immune' in request.form:
             status = "immune"
+            render_template('status.html',
+                            form=form,
+                            template='form-template',
+                            status=1)
+        elif 'non_infected' in request.form:
+            status = "non_infected"
+            render_template('status.html',
+                            form=form,
+                            template='form-template',
+                            status=1)
         save_info(ID=ID, key="status", value=status)
         return redirect(url_for('contribute_more'))
 
-    return render_template('email.html',
+    return render_template('status.html',
                            form=form,
                            template='form-template')
 

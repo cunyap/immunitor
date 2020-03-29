@@ -12,9 +12,10 @@ from wtforms.validators import (DataRequired,
                                 URL)
 
 
-class TypeinField(FlaskForm):
-    infected = SubmitField('infected')
-    immune = SubmitField('immune')
+class Status(FlaskForm):
+    infected = SubmitField('Infected')
+    immune = SubmitField('Immune')
+    non_infected = SubmitField(' Non infected')
 
 
 class ContributeMore(FlaskForm):

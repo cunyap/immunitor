@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="formwrapper">
+  <h2 class="title">What is your current status?</h2>
+  <form method="POST" action="/status">
+      {{ form.csrf_token }}
+      {{ form.non_infected}}
+      {{ form.infected }}
+      {{ form.immune }}
+  </form>
+
+</div>
+{% if status==0 %}
+<div class="formwrapper">
+  <h2 class="title">What is your current status?</h2>
+  <form method="POST" action="/status">
+      {{ form.csrf_token }}
+      {{ form.non_infected}}
+      {{ form.infected }}
+      {{ form.immune }}
+  </form>
+</div>
+{%endif%}
+{% if status==1 %}
+<div class="formwrapper">
+  <h2 class="title">What is your current status?</h2>
+  <form method="POST" action="/status">
+      {{ form.csrf_token }}
+      {{ form.non_infected}}
+      {{ form.infected }}
+      {{ form.immune }}
+  </form>
+</div>
+{%endif%}
+{% endblock %}
