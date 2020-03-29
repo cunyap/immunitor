@@ -8,17 +8,22 @@
   <h2 class="title">What is your current status?</h2>
   <form method="POST" action="/status">
       {{ form.csrf_token }}
-      {{ form.non_infected}}
-      {{ form.infected }}
-      {{ form.immune }}
+      {{ form.infection_status}}
   </form>
+{% if s=="status_not_registered" %}
+{%endif%}
+{% if s=="status_registered" %}
+  <form method="POST" action="/status">
+      {{form.contribution}}
+        </form>
+{%endif%}
+{% if c=="contribution_y" %}
+  <form method="POST" action="/status">
+      {{form.additional_info}}
+        </form>
+{%endif%}
+
 </div>
-{% if s==0 %}
-  <h2 class="title">status?</h2>
-{%endif%}
-{% if s==1 %}
-  <h2 class="title">What is your current status?</h2>
-{%endif%}
 {% endblock %}
 
 

@@ -26,7 +26,6 @@ class ContributeMore(FlaskForm):
     no = SubmitField('no')
 
 class MoreInfo(FlaskForm):
-    submit = SubmitField('Submit')
 
     age = SelectField('Age', [DataRequired()],
                         choices=[('young', '0-50 years old'),
@@ -37,6 +36,7 @@ class MoreInfo(FlaskForm):
                                ('Witch', 'Witch'),
                                ('Muggle', 'Muggle')])
     country = StringField('Country: ', [InputRequired(), validate_country])
+    submit = SubmitField('Submit')
 
 class KeepInTouch(FlaskForm):
     email = StringField('E-mail: ', [

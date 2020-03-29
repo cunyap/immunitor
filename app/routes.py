@@ -14,43 +14,12 @@ ID = dt.now().strftime('%c')
 
 
 
-
 @app.route('/success', methods=('GET', 'POST'))
 def success():
     return render_template('success.html',
                            template='success-template')
 
 
-@app.route('/status', methods=('GET','POST'))
-def status():
-    form = Status()
-    if form.validate_on_submit():
-        if 'infected' in request.form:
-            status = "infected"
-            save_info(ID=ID, key="status", value=status)
-            return render_template('status.html',
-                            form=form,
-                            template='form-template',
-                            s=1)
-        elif 'immune' in request.form:
-            status = "immune"
-            save_info(ID=ID, key="status", value=status)
-            return render_template('status.html',
-                            form=form,
-                            template='form-template',
-                            s=1)
-        elif 'non_infected' in request.form:
-            status = "non_infected"
-            save_info(ID=ID, key="status", value=status)
-            return render_template('status.html',
-                            form=form,
-                            template='form-template',
-                            s=1)
-
-    return render_template('status.html',
-                           form=form,
-                           template='form-template',
-                           s=0)
 
 
 def save_info(ID, key, value):
@@ -62,63 +31,11 @@ def save_info(ID, key, value):
     with open("app/static/comments.json", 'w') as outfile:
         json.dump(comments, outfile)
 
-
-@app.route('/hiddenbutton', methods=('GET', 'POST'))
-def hiddenbutton():
-    form = HiddenButton()
-    if form.validate_on_submit():
-        print("yassss")
-        if 'Age' in request.form:
-            save_info(ID=ID, status="age")
-        return redirect(url_for('success'))
-    return render_template('hiddenbutton.html',
-                               form=form,
-                               template='form-template')
-
-
-@app.route('/contribute_more', methods=('GET', 'POST'))
-def contribute_more():
-    form = ContributeMore()
-    if form.validate_on_submit():
-        if 'yes' in request.form:
-            return redirect(url_for('more_info'))
-        elif 'no' in request.form:
-            return redirect(url_for('success'))
-    return render_template('contribute_more.html',
-                               form=form,
-                               template='form-template')
-
-
-@app.route('/more_info',  methods=('GET', 'POST'))
-def more_info():
-    form = MoreInfo()
-    if form.validate_on_submit():
-        if 'job' in request.form:
-            save_info(ID=ID, key="job", value=form.data['job'])
-        if 'age' in request.form:
-            save_info(ID=ID, key="age", value=form.data['age'])
-        if 'submit' in request.form:
-            return redirect(url_for('keep_in_touch'))
-    return render_template('more_info.html',
-                           form=form,
-                           template='form-template')
-
-@app.route('/keep_in_touch', methods=('GET', 'POST'))
-def keep_in_touch():
-    form = KeepInTouch()
-    if form.validate_on_submit():
-        save_info(ID=ID, key="email", value=form.email.data)
-        return redirect(url_for('success'))
-    return render_template('keep_in_touch.html',
-                           form=form,
-                           template='form-template')
-
-
-@app.route('/')
+@app.route('/status', methods=('GET', 'POST'))
 def home():
     form = QuestioningEverything()
-    if form.infection_status.validate_on_submit():
-        if 'infected' in request.form:
+    if form.infection_status.validate(form):
+        if 'infection_status-infected' in request.form:
             status = "infected"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
@@ -126,6 +43,7 @@ def home():
                                    template='form-template',
                                    s="status_registered")
         elif 'immune' in request.form:
+            s = "status_registered"
             status = "immune"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
@@ -133,22 +51,24 @@ def home():
                                    template='form-template',
                                    s="status_registered")
         elif 'non_infected' in request.form:
+            s = "status_registered"
             status = "non_infected"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
-    if form.contribution.validate_on_submit():
-        if 'yes' in request.form:
+    if form.contribution.validate(form):
+        if 'contribution-yes' in request.form:
             return render_template('status.html',
                                    form=form,
                                    template='form-template',
+                                   s="status_registered",
                                    c="contribution_y")
-        if 'no' in request.form:
+        if 'contribution-no' in request.form:
             return redirect(url_for('success'))
 
-    if form.additional_info.validate_on_submit():
+    if form.additional_info.validate(form):
         save_info(ID=ID, key="job", value=form.data['job'])
         save_info(ID=ID, key="age", value=form.data['age'])
         return redirect(url_for('success'))
