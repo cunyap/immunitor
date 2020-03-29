@@ -1,9 +1,11 @@
 import json
-from flask import url_for, render_template, redirect, make_response, request, session
+from flask import url_for, render_template, redirect, make_response, request, session, Response
 from flask import current_app as app
 from .forms import ContactForm, SignupForm, StatusReport, HiddenButton
 from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch, QuestioningEverything
 from datetime import datetime as dt
+from .utils import get_data_from_json
+from .visualization import create_plot
 
 # @app.route('/')
 # def home():
@@ -19,6 +21,7 @@ ID = dt.now().strftime('%c')
 def success():
     return render_template('success.html',
                            template='success-template')
+
 
 
 
@@ -57,7 +60,6 @@ def home():
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
-
     if form.contribution.validate(form):
         if 'contribution-yes' in request.form:
             return render_template('status.html',
@@ -72,11 +74,25 @@ def home():
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
         save_info(ID=ID, key="age", value=form.additional_info.data['age'])
         save_info(ID=ID, key="country", value=form.additional_info.data['country'])
-        return redirect(url_for('success'))
 
 
     return render_template('status.html',
-                           form=form,
                            template='form-template',
                            s="status_not_registered")
 
+
+
+@app.route('/geojson-features', methods=['GET'])
+def get_all_points():
+
+    d, df = get_data_from_json()
+    return Response(d, mimetype='application/json')
+
+
+@app.route('/visuals')
+def main():
+    _, df = get_data_from_json()
+    print(df)
+    graphJSON = create_plot(df)
+    return render_template('visuals.html',
+                           template='signup-template', plot=graphJSON)

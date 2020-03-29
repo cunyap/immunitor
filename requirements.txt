@@ -8,4 +8,5 @@ python-dotenv
 Werkzeug
 WTForms
 Flask-QRcode
-python-dotenv
+pgeocode
+plotly

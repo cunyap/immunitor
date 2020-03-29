@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+    <title>Visuals</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <h1>
+        Let's display some nice maps here!
+    </h1>
+
+    <div class="chart" id="bargraph">
+    <script type="text/javascript">
+        var graphs = {{plot | safe}};
+        Plotly.plot('bargraph',graphs || {});
+    </script>
+    </div>
+
+<div id="map" style="height: 80vh;"></div>
+
+<script>
+
+var map = L.map('map').setView([46.9476, 7.4065], 13)
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+        map.panTo(L.latLng(position.coords.latitude, position.coords.longitude))
+    })
+}
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: 'Open street map'
+}).addTo(map)
+
+var circleProp = { color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 20};
+
+
+axios.get('http://127.0.0.1:5000/geojson-features')
+    .then(response => {
+        console.log(response.data)
+        console.log(response.data[0]['latitude'])
+
+        const entries = Object.entries(response.data)
+
+        for (const [key, val] of entries) {
+
+        if (val['latitude']) {
+        const infoPanel = `<h1>My ${val['id']}</h1>
+                   <p>This is information about the marker</p>
+                   <ul>
+                   <li>Info 1</li>
+                   <li>Info 2</li>
+                   <li>Info 3</li>
+                   </ul>`;
+
+        L.circle([val['latitude'], val['longitude']], circleProp).bindTooltip(infoPanel).addTo(map);
+        }
+        }
+    })
+</script>
+
+</body>
+</html>
