@@ -1,6 +1,10 @@
-from flask import url_for, render_template, redirect
+from flask import url_for, render_template, redirect, jsonify, Response
 from flask import current_app as app
 from .forms import ContactForm, SignupForm
+from .utils import get_data_from_json
+from .visualization import create_plot
+import json
+
 
 
 @app.route('/')
@@ -35,3 +39,19 @@ def signup():
 def success():
     return render_template('success.html',
                            template='success-template')
+
+
+@app.route('/geojson-features', methods=['GET'])
+def get_all_points():
+
+    d, df = get_data_from_json()
+    return Response(d, mimetype='application/json')
+
+
+@app.route('/visuals')
+def main():
+    _, df = get_data_from_json()
+    print(df)
+    graphJSON = create_plot(df)
+    return render_template('visuals.html',
+                           template='signup-template', plot=graphJSON)
