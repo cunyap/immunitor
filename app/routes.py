@@ -2,7 +2,7 @@ import json
 from flask import url_for, render_template, redirect, make_response, request
 from flask import current_app as app
 from .forms import ContactForm, SignupForm, StatusReport, HiddenButton
-from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch
+from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch, QuestioningEverything
 from datetime import datetime as dt
 
 # @app.route('/')
@@ -12,26 +12,7 @@ from datetime import datetime as dt
 
 ID = dt.now().strftime('%c')
 
-@app.route('/contact', methods=('GET', 'POST'))
-def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        return redirect(url_for('success'))
-    return render_template('contact.html',
-                           form=form,
-                           template='form-template')
 
-
-@app.route('/signup', methods=('GET', 'POST'))
-def signup():
-    form = SignupForm()
-    if form.validate_on_submit():
-		# Here we will then insert the code which computes a hash if needed and starts uploading the data into our database
-		# It will also trigger a reload of the live data or maybe this will only be done when one goes to the plotting page
-        return redirect(url_for('success'))
-    return render_template('signup.html',
-                           form=form,
-                           template='form-template')
 
 
 @app.route('/success', methods=('GET', 'POST'))
@@ -131,3 +112,50 @@ def keep_in_touch():
     return render_template('keep_in_touch.html',
                            form=form,
                            template='form-template')
+
+
+@app.route('/')
+def home():
+    form = QuestioningEverything()
+    if form.infection_status.validate_on_submit():
+        if 'infected' in request.form:
+            status = "infected"
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
+                                   form=form,
+                                   template='form-template',
+                                   s="status_registered")
+        elif 'immune' in request.form:
+            status = "immune"
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
+                                   form=form,
+                                   template='form-template',
+                                   s="status_registered")
+        elif 'non_infected' in request.form:
+            status = "non_infected"
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
+                                   form=form,
+                                   template='form-template',
+                                   s="status_registered")
+    if form.contribution.validate_on_submit():
+        if 'yes' in request.form:
+            return render_template('status.html',
+                                   form=form,
+                                   template='form-template',
+                                   c="contribution_y")
+        if 'no' in request.form:
+            return redirect(url_for('success'))
+
+    if form.additional_info.validate_on_submit():
+        save_info(ID=ID, key="job", value=form.data['job'])
+        save_info(ID=ID, key="age", value=form.data['age'])
+        return redirect(url_for('success'))
+
+
+    return render_template('status.html',
+                           form=form,
+                           template='form-template',
+                           s="status_not_registered")
+
