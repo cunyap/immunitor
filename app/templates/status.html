@@ -20,6 +20,13 @@
 {% if c=="contribution_y" %}
   <form method="POST" action="/status">
       {{form.additional_info}}
+      {% if form.additional_info.country.errors %}
+          <ul class="errors">
+            {% for error in form.additional_info.country.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
         </form>
 {%endif%}
 

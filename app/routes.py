@@ -1,5 +1,5 @@
 import json
-from flask import url_for, render_template, redirect, make_response, request
+from flask import url_for, render_template, redirect, make_response, request, session
 from flask import current_app as app
 from .forms import ContactForm, SignupForm, StatusReport, HiddenButton
 from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch, QuestioningEverything
@@ -11,6 +11,7 @@ from datetime import datetime as dt
 #                            template='home-template')
 
 ID = dt.now().strftime('%c')
+#ID = session['_id']
 
 
 
