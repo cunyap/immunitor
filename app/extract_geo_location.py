@@ -14,7 +14,7 @@ for geo_feature in geodata_collection:
 import json
 from flask import jsonify
 
-with open('raw-data\\data-2020-03-24T23_2020-03-25T00.json') as json_file:
+with open('raw-data/data-2020-03-24T23_2020-03-25T00.json') as json_file:
     data = json.load(json_file)
 
     import pandas as pd

@@ -24,8 +24,6 @@ def success():
 
 
 
-
-
 def save_info(ID, key, value):
     with open("app/static/comments.json", 'r') as file:
         comments = json.load(file)
@@ -60,6 +58,7 @@ def home():
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
+
     if form.contribution.validate(form):
         if 'contribution-yes' in request.form:
             return render_template('status.html',
@@ -74,9 +73,11 @@ def home():
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
         save_info(ID=ID, key="age", value=form.additional_info.data['age'])
         save_info(ID=ID, key="country", value=form.additional_info.data['country'])
+        return redirect(url_for('success'))
 
 
     return render_template('status.html',
+                           form=form,
                            template='form-template',
                            s="status_not_registered")
 
