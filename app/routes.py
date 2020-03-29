@@ -42,22 +42,21 @@ def home():
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
-        elif 'immune' in request.form:
-            s = "status_registered"
+        elif 'infection_status-immune' in request.form:
             status = "immune"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
-        elif 'non_infected' in request.form:
-            s = "status_registered"
+        elif 'infection_status-non_infected' in request.form:
             status = "non_infected"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
                                    template='form-template',
                                    s="status_registered")
+
     if form.contribution.validate(form):
         if 'contribution-yes' in request.form:
             return render_template('status.html',
@@ -68,9 +67,10 @@ def home():
         if 'contribution-no' in request.form:
             return redirect(url_for('success'))
 
-    if form.additional_info.validate(form):
-        save_info(ID=ID, key="job", value=form.data['job'])
-        save_info(ID=ID, key="age", value=form.data['age'])
+    if 'additional_info-submit' in request.form:
+        save_info(ID=ID, key="job", value=form.additional_info.data['job'])
+        save_info(ID=ID, key="age", value=form.additional_info.data['age'])
+        save_info(ID=ID, key="country", value=form.additional_info.data['country'])
         return redirect(url_for('success'))
 
 
