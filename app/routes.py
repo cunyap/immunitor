@@ -46,29 +46,30 @@ def status():
     if form.validate_on_submit():
         if 'infected' in request.form:
             status = "infected"
-            render_template('status.html',
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
                             form=form,
                             template='form-template',
-                            status=1)
+                            s=1)
         elif 'immune' in request.form:
             status = "immune"
-            render_template('status.html',
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
                             form=form,
                             template='form-template',
-                            status=1)
+                            s=1)
         elif 'non_infected' in request.form:
             status = "non_infected"
-            render_template('status.html',
+            save_info(ID=ID, key="status", value=status)
+            return render_template('status.html',
                             form=form,
                             template='form-template',
-                            status=1)
-        save_info(ID=ID, key="status", value=status)
-        return redirect(url_for('contribute_more'))
+                            s=1)
 
     return render_template('status.html',
                            form=form,
                            template='form-template',
-                           status=0)
+                           s=0)
 
 def save_info(ID, key, value):
     with open("app/static/comments.json", 'r') as file:
