@@ -10,3 +10,5 @@ WTForms
 Flask-QRcode
 pgeocode
 plotly
+pandas
+pybis
