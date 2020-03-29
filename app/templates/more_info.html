@@ -6,12 +6,12 @@
 
 {% block content %}
 <div class="formwrapper">
-  <h2 class="title">Email test</h2>
-  <form method="POST" action="/email">
+  <h2 class="title">Thanks</h2>
+  <form method="POST" action="/more_info">
       {{ form.csrf_token }}
-      {{ form.infected }}
-      {{ form.immune }}
+      {{ form.job }}
+      {{ form.age }}
+      {{ form.submit}}
   </form>
-
 </div>
 {% endblock %}

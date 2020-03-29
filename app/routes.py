@@ -3,7 +3,7 @@ from flask import url_for, render_template, redirect, make_response, request
 from flask import current_app as app
 #from .models import db, User
 from .forms import ContactForm, SignupForm, StatusReport, HiddenButton
-from .interactive_fields import TypeinField
+from .interactive_fields import TypeinField, ContributeMore, MoreInfo, KeepInTouch
 from datetime import datetime as dt
 
 # @app.route('/')
@@ -44,25 +44,24 @@ def success():
 @app.route('/email', methods=('GET','POST'))
 def email():
     form = TypeinField()
-    status="uff"
-    print(str(status))
-
     if form.validate_on_submit():
         if 'infected' in request.form:
             status = "infected"
         elif 'immune' in request.form:
             status = "immune"
-        save_info(ID=ID, status=status)
-        return redirect(url_for('success'))
+        save_info(ID=ID, key="status", value=status)
+        return redirect(url_for('contribute_more'))
+
     return render_template('email.html',
                            form=form,
                            template='form-template')
 
-def save_info(ID, status):
+def save_info(ID, key, value):
     with open("app/static/comments.json", 'r') as file:
         comments = json.load(file)
-    comments[ID] = {}
-    comments[ID]["status"] = status
+    if ID not in comments.keys():
+        comments[ID] = {}
+    comments[ID][key] = value
     with open("app/static/comments.json", 'w') as outfile:
         json.dump(comments, outfile)
 
@@ -70,14 +69,49 @@ def save_info(ID, status):
 @app.route('/hiddenbutton', methods=('GET', 'POST'))
 def hiddenbutton():
     form = HiddenButton()
-    status = "duh"
-    print(str(status))
     if form.validate_on_submit():
-        status = "valid"
-        print(str(status))
+        print("yassss")
         if 'Age' in request.form:
             save_info(ID=ID, status="age")
         return redirect(url_for('success'))
     return render_template('hiddenbutton.html',
                                form=form,
                                template='form-template')
+
+
+@app.route('/contribute_more', methods=('GET', 'POST'))
+def contribute_more():
+    form = ContributeMore()
+    if form.validate_on_submit():
+        if 'yes' in request.form:
+            return redirect(url_for('more_info'))
+        elif 'no' in request.form:
+            return redirect(url_for('success'))
+    return render_template('contribute_more.html',
+                               form=form,
+                               template='form-template')
+
+
+@app.route('/more_info',  methods=('GET', 'POST'))
+def more_info():
+    form = MoreInfo()
+    if form.validate_on_submit():
+        if 'job' in request.form:
+            save_info(ID=ID, key="job", value=form.data['job'])
+        if 'age' in request.form:
+            save_info(ID=ID, key="age", value=form.data['age'])
+        if 'submit' in request.form:
+            return redirect(url_for('keep_in_touch'))
+    return render_template('more_info.html',
+                           form=form,
+                           template='form-template')
+
+@app.route('/keep_in_touch', methods=('GET', 'POST'))
+def keep_in_touch():
+    form = KeepInTouch()
+    if form.validate_on_submit():
+        save_info(ID=ID, key="email", value=form.email.data)
+        return redirect(url_for('success'))
+    return render_template('keep_in_touch.html',
+                           form=form,
+                           template='form-template')
