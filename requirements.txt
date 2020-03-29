@@ -11,3 +11,5 @@ Flask-QRcode
 python-dotenv
 pgeocode
 plotly
+pandas
+pybis
