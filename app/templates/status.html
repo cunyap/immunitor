@@ -7,12 +7,18 @@
 <div class="formwrapper">
   <h2 class="title">What is your current status?</h2>
   <form method="POST" action="/status">
+      {{ form.csrf_token }}
       {{ form.non_infected}}
       {{ form.infected }}
       {{ form.immune }}
   </form>
 </div>
-
+{% if s==0 %}
+  <h2 class="title">status?</h2>
+{%endif%}
+{% if s==1 %}
+  <h2 class="title">What is your current status?</h2>
+{%endif%}
 {% endblock %}
 
 
