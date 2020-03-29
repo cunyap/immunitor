@@ -7,7 +7,7 @@
 {% block content %}
 <div class="formwrapper">
   <h2 class="title">Email test</h2>
-  <form method="POST" action="/">
+  <form method="POST" action="/email">
       {{ form.csrf_token }}
       <div class="form-field">{{ form.email.label }} {{ form.email }}
           {% if form.email.errors %}
@@ -18,7 +18,12 @@
           </ul>
           {% endif %}
       </div>
-      {{ form.submit }}
+      {{ form.infected }}
+      {{ form.immune }}
   </form>
+<button type="button">
+"BIG RED BUTTON"
+</button>
+</a>
 </div>
 {% endblock %}

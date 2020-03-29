@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="formwrapper">
+  <h2 class="title">Hidden button</h2>
+    <script>
+    function showElement() {
+            element = document.querySelector('.form-field');
+            element.style.display = 'block';
+        }
+    </script>
+    <button onclick="showElement()">{{ form.status_noninfected }}</button>
+
+    <button onclick="showElement()">{{ form.status_infected }}</button>
+
+    <button onclick="showElement()">{{ form.status_immune }}</button>
+
+
+    <div class="form-field" style="display: none;"  >
+        {{ form.age_text }}
+        {{ form.job_text }}
+        {{ form.location_text }}
+        {{ form.email_text }}
+        {{ form.title.label }}
+        {{ form.title }}
+        <i class="fas fa-caret-down"></i>
+        {% if form.title.errors %}
+          <ul class="errors">
+            {% for error in form.title.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+</div>
+{% endblock %}
+#element.style.visibility = 'visible';
+#style="visibility: hidden;"

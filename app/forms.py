@@ -61,4 +61,24 @@ class StatusReport(FlaskForm):
     status_infected = SubmitField('Infected')
     status_immune = SubmitField('Immune')
 
+# class StatusReport(FlaskForm):
+#     """Infected etc."""
+#     status_infected = SubmitField('Infected')
+#     status_immune = SubmitField('Immune')
+#     status_noinf = SubmitField('Not')
 
+
+class HiddenButton(FlaskForm):
+    """Infected"""
+    status_noninfected = SubmitField('Non Infected')
+    status_infected = SubmitField('Infected')
+    status_immune = SubmitField('Immune')
+
+    age_text = SubmitField('Age')
+    job_text = SubmitField('Job')
+    location_text = SubmitField('Location')
+    email_text = SubmitField('Email')
+
+    title = SelectField('Age', [DataRequired()],
+                        choices=[('AgeY', '0-50 years old'),
+                                 ('AgeO', '51-100 years old')])

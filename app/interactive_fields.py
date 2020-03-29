@@ -16,4 +16,5 @@ class TypeinField(FlaskForm):
     email = StringField('E-mail: ', [
         Email(message='Not a valid email address.'),
         DataRequired()])
-    submit = SubmitField('Submit')
+    infected = SubmitField('infected')
+    immune = SubmitField('immune')
