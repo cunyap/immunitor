@@ -67,7 +67,8 @@ def status():
 
     return render_template('status.html',
                            form=form,
-                           template='form-template')
+                           template='form-template',
+                           status=0)
 
 def save_info(ID, key, value):
     with open("app/static/comments.json", 'r') as file:
