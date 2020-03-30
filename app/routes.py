@@ -42,8 +42,8 @@ def save_info(ID, key, value):
 def status():
 
     form = QuestioningEverything()
-    if form.proof.validate(form):
-        if 'proof-proceed' in request.form:
+    #if form.proof.validate(form):
+    if 'proof-proceed' in request.form:
             create_infofile(ID)
             save_info(ID=ID, key="testid", value=form.proof.data['proof'])
             return render_template('status.html',
@@ -51,25 +51,25 @@ def status():
                                    template='form-template',
                                    p="proof_submitted")
 
-    if form.infection_status.validate(form):
-        if 'infection_status-infected' in request.form:
-            status = "infected"
+    #if form.infection_status.validate(form):
+    if 'infection_status-infected' in request.form:
+            status = 1
             save_info(ID=ID, key="diagnostic", value=status)
             return render_template('status.html',
                                    form=form,
                                    template='base',
                                    p="proof_submitted",
                                    s="status_registered")
-        elif 'infection_status-immune' in request.form:
-            status = "immune"
+    elif 'infection_status-immune' in request.form:
+            status = 2
             save_info(ID=ID, key="diagnostic", value=status)
             return render_template('status.html',
                                    form=form,
                                    template='base',
                                    p="proof_submitted",
                                    s="status_registered")
-        elif 'infection_status-non_infected' in request.form:
-            status = "non_infected"
+    elif 'infection_status-non_infected' in request.form:
+            status = 0
             save_info(ID=ID, key="diagnostic", value=status)
             return render_template('status.html',
                                    form=form,
@@ -77,22 +77,22 @@ def status():
                                    p="proof_submitted",
                                    s="status_registered")
 
-    if form.contribution.validate(form):
-        if 'contribution-yes' in request.form:
+    #if form.contribution.validate(form):
+    if 'contribution-yes' in request.form:
             return render_template('status.html',
                                    form=form,
                                    template='base',
                                    p="proof_submitted",
                                    s="status_registered",
                                    c="contribution_y")
-        if 'contribution-no' in request.form:
+    if 'contribution-no' in request.form:
             return redirect(url_for('success'))
 
     if 'additional_info-submit' in request.form:
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
-        save_info(ID=ID, key="age", value=form.additional_info.data['age'])
+        save_info(ID=ID, key="age", value=int(form.additional_info.data['age']))
         save_info(ID=ID, key="country", value=form.additional_info.data['country'])
-        save_info(ID=ID, key="zip", value=form.additional_info.data['postcode'])
+        save_info(ID=ID, key="zip", value=int(form.additional_info.data['postcode']))
         return redirect(url_for('success'), perm_id=get_data(ID))
 
 

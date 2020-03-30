@@ -14,19 +14,25 @@
 <h2 class="title">First, do you have a test serial number and are you a robot?</h2>
   <form method="POST" action="/status">
       {{ form.csrf_token }}
-      {{ form.proof}}
+      {{ form.proof.proof}}
+      {{ form.proof.proceed}}
   </form>
 
     {% if p=="proof_submitted" %}
   <h2 class="title">What is your current status?</h2>
   <form method="POST" action="/status">
-      {{ form.infection_status}}
+      {{ form.infection_status.non_infected}}
+      {{ form.infection_status.infected}}
+      {{ form.infection_status.immune}}
+
   </form>
 {%endif%}
 {% if s=="status_registered" %}
     <h2 class="title">Would you like to contribute more?</h2>
   <form method="POST" action="/status">
-      {{form.contribution}}
+      {{form.contribution.yes}}
+      {{form.contribution.no}}
+
         </form>
 {%endif%}
 {% if c=="contribution_y" %}
