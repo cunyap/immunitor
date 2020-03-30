@@ -46,10 +46,10 @@
 
 
         {% set nav_bar_content = [
-            (url_for('success'), 'success', 'Success'),
+            (url_for('index'), 'index', 'Home'),
             (url_for('visuals'), 'visuals', 'Visualization'),
-            (url_for('status'), 'help', 'Help'),
-            (url_for('success'), 'about', 'About')
+            (url_for('faq'), 'help', 'FAQ'),
+            (url_for('index'), 'index', 'About')
         ] -%}
 
         {% set active_page = active_page|default('index') -%}
@@ -63,7 +63,7 @@
         <footer class="footer">
                 {{ config['APP_NAME'] }} 2020  | <a href="{{ url_for('terms') }}">Terms and conditions</a>
                 |<a href="mailto:admin@admin.com"> Contact us </a>
-                | Created by <a href="http://www.github.com">Immunitor team</a>
+                | Created by <a href="http://www.immunitor.ethz.ch">Immunitor team</a>
 
         </footer>
     </div>

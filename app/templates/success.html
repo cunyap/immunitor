@@ -21,7 +21,12 @@
       Here's an hamster eating a cupcake, you deserve this.</p>
       <img src="{{url_for('static', filename='hamster.gif')}}" align="middle" width="200"/>
       <p>One more thing if you'd like to modify/add data to this entry, keep this code (a screenshot works), so we don't have to know any info from you.</p>
-      <img src="{{ qrcode({{perm_id}}, back_color='white') }}">
+
+      {% set perm_id = request.args.get('permID') %}
+      {% if perm_id %}
+      <img src="{{ qrcode( perm_id , back_color='white') }}">
+      {% endif %}
+
     </div>
   </div>
 </div>

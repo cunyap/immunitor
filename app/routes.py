@@ -94,16 +94,14 @@ def status():
         save_info(ID=ID, key="country", value=form.additional_info.data['country'])
         if form.additional_info.data['postcode']:
             save_info(ID=ID, key="zip", value=int(form.additional_info.data['postcode']))
-        #return redirect(url_for('success'), perm_id=get_data(ID))
-        return render_template('success.html', perm_id=get_data(ID))
-
+        # return redirect(url_for('success'), perm_id=get_data(ID))
+        permID = get_data(ID)
+        return redirect(url_for('success', permID=permID))
 
     return render_template('status.html',
                            form=form,
                            template='base',
                            s="status_not_registered")
-
-
 
 @app.route('/geojson-features', methods=['GET'])
 def get_all_points():
@@ -120,13 +118,21 @@ def visuals():
     return render_template('visuals.html',
                            template='signup-template', plot=graphJSON)
 
+@app.route('/%')
+def main():
+    return render_template('status.html', template='base')
+
 @app.route('/index')
 def index():
-    return render_template('index.html', template='base')
+    return render_template('status.html', template='base')
 
 @app.route('/terms')
 def terms():
     return render_template('terms.html', template='base')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html', template='base')
 
 
 def get_data(ID):
