@@ -1,34 +1,45 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
+{% set active_page = "" %}
+{% block body_class %}main main-index{% endblock %}
 
+<!--
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
 {% endblock %}
+-->
+
 {% block content %}
-<div class="formwrapper">
-  <h2 class="title">What is your current status?</h2>
-  <form method="POST" action="/status">
-      {{ form.csrf_token }}
-      {{ form.infection_status}}
-  </form>
-{% if s=="status_not_registered" %}
-{%endif%}
-{% if s=="status_registered" %}
-  <form method="POST" action="/status">
-      {{form.contribution}}
-        </form>
-{%endif%}
-{% if c=="contribution_y" %}
-  <form method="POST" action="/status">
-      {{form.additional_info}}
-      {% if form.additional_info.country.errors %}
-          <ul class="errors">
-            {% for error in form.additional_info.country.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-        </form>
-{%endif%}
+<div class="row">
+    <div class="col-xs-12" style="text-align: justify;">
+       <!-- <div class="formwrapper"> -->
+            <h2 class="page-header">What is your current status?</h2>
+            <form method="POST" action="/status">
+                {{ form.csrf_token }}
+                {{ form.infection_status}}
+            </form>
+            {% if s=="status_not_registered" %}
+            {%endif%}
+            {% if s=="status_registered" %}
+            <form method="POST" action="/status">
+                {{form.contribution}}
+            </form>
+            {%endif%}
+            {% if c=="contribution_y" %}
+            <form method="POST" action="/status">
+                {{form.additional_info}}
+                {% if form.additional_info.country.errors %}
+                <ul class="errors">
+                    {% for error in form.additional_info.country.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </form>
+            {%endif%}
+
+        </div>
+    </div>
 
 </div>
+
 {% endblock %}

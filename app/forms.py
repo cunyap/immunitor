@@ -58,7 +58,7 @@ class StatusReport(FlaskForm):
     Declare your status: infected, not infected, immune
     """
     status_not_infected = SubmitField('Not infected')
-    status_infected = SubmitField('Infected')
+    status_infected = SubmitField('blu')
     status_immune = SubmitField('Immune')
 
 # class StatusReport(FlaskForm):
@@ -71,7 +71,7 @@ class StatusReport(FlaskForm):
 class HiddenButton(FlaskForm):
     """Infected"""
     status_noninfected = SubmitField('Non Infected')
-    status_infected = SubmitField('Infected')
+    status_infected = SubmitField('bla')
     status_immune = SubmitField('Immune')
 
     age_text = SubmitField('Age')

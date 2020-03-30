@@ -34,7 +34,7 @@ def save_info(ID, key, value):
         json.dump(comments, outfile)
 
 @app.route('/status', methods=('GET', 'POST'))
-def home():
+def status():
     form = QuestioningEverything()
     if form.infection_status.validate(form):
         if 'infection_status-infected' in request.form:
@@ -42,28 +42,28 @@ def home():
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
-                                   template='form-template',
+                                   template='base',
                                    s="status_registered")
         elif 'infection_status-immune' in request.form:
             status = "immune"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
-                                   template='form-template',
+                                   template='base',
                                    s="status_registered")
         elif 'infection_status-non_infected' in request.form:
             status = "non_infected"
             save_info(ID=ID, key="status", value=status)
             return render_template('status.html',
                                    form=form,
-                                   template='form-template',
+                                   template='base',
                                    s="status_registered")
 
     if form.contribution.validate(form):
         if 'contribution-yes' in request.form:
             return render_template('status.html',
                                    form=form,
-                                   template='form-template',
+                                   template='base',
                                    s="status_registered",
                                    c="contribution_y")
         if 'contribution-no' in request.form:
@@ -78,7 +78,7 @@ def home():
 
     return render_template('status.html',
                            form=form,
-                           template='form-template',
+                           template='base',
                            s="status_not_registered")
 
 
@@ -91,9 +91,17 @@ def get_all_points():
 
 
 @app.route('/visuals')
-def main():
+def visuals():
     _, df = get_data_from_json()
     print(df)
     graphJSON = create_plot(df)
     return render_template('visuals.html',
                            template='signup-template', plot=graphJSON)
+
+@app.route('/index')
+def index():
+    return render_template('index.html', template='base')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html', template='base')

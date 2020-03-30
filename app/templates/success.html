@@ -1,12 +1,23 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 
+<!--
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/success.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
+-->
 
 {% block content %}
-<div class="success-wrapper">
-  <h1>SUCCESS!</h1>
-  <p>You've submitted a valid form. Your mother would be very proud of you.</p>
+<!-- Success Alert -->
+<div class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> Your message has been sent successfully.
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+<div class="row">
+  <div class="col-xs-12" style="text-align: justify;">
+    <div class="success-wrapper">
+      <h2>SUCCESS!</h2>
+      <p>You've submitted a valid form. Your mother would be very proud of you.</p>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -6,7 +6,7 @@ import pgeocode
 
 def get_data_from_json():
 
-    directory = '/Users/Eli/Desktop/Hackthon/codevscovid19_app/app/raw-data'
+    directory = os.getcwd() + '/app/raw-data'
     cnt = 0
     for filename in os.listdir(directory):
         if filename.endswith(".json") and cnt == 0:

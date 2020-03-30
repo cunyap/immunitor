@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% set active_page = "" %}
+{% block body_class %}main main-index{% endblock %}
+
+{% block content %}
 <head>
     <title>Visuals</title>
     <meta charset="utf-8">
@@ -10,16 +14,14 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
-    <h1>
-        Let's display some nice maps here!
-    </h1>
+<h2>Let's display some nice maps here!</h2>
 
-    <div class="chart" id="bargraph">
+<div class="chart" id="bargraph">
     <script type="text/javascript">
         var graphs = {{plot | safe}};
         Plotly.plot('bargraph',graphs || {});
     </script>
-    </div>
+</div>
 
 <div id="map" style="height: 80vh;"></div>
 
@@ -64,6 +66,7 @@ axios.get('http://127.0.0.1:5000/geojson-features')
         }
     })
 </script>
+{% endblock %}
 
 </body>
 </html>
