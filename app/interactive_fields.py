@@ -16,7 +16,7 @@ class Status(FlaskForm):
 
 class Proof(FlaskForm):
     proof = StringField('Serial Number: ')
-    #recaptcha = RecaptchaField()
+    recaptcha = RecaptchaField()
     proceed = SubmitField('Proceed')
 
 

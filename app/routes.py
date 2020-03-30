@@ -86,7 +86,8 @@ def status():
                                    s="status_registered",
                                    c="contribution_y")
     if 'contribution-no' in request.form:
-            return redirect(url_for('success'))
+        permID = get_data(ID)
+        return redirect(url_for('success', permID=permID))
 
     if 'additional_info-submit' in request.form:
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
@@ -103,6 +104,7 @@ def status():
                            template='base',
                            s="status_not_registered")
 
+
 @app.route('/geojson-features', methods=['GET'])
 def get_all_points():
 
@@ -118,13 +120,13 @@ def visuals():
     return render_template('visuals.html',
                            template='signup-template', plot=graphJSON)
 
-@app.route('/%')
+@app.route('/')
 def main():
-    return render_template('status.html', template='base')
+    return redirect(url_for('status'))
 
 @app.route('/index')
 def index():
-    return render_template('status.html', template='base')
+    return redirect(url_for('status'))
 
 @app.route('/terms')
 def terms():

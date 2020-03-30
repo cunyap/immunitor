@@ -6,8 +6,7 @@ from pybis import Openbis
 def establish_db_connection():
 
     # Should be done during server startup or when calling a function to set or get data
-    o = Openbis(os.environ['OPENBIS_SERVER'], verify_certificates=False,
-                allow_http_but_do_not_use_this_in_production_and_only_within_safe_networks=True)
+    o = Openbis(os.environ['OPENBIS_SERVER'], verify_certificates=False)
     o.login(os.environ['OPENBIS_USER'], os.environ['OPENBIS_PASSWORD'])
     return o
 
