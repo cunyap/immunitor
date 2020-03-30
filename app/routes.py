@@ -92,8 +92,10 @@ def status():
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
         save_info(ID=ID, key="age", value=int(form.additional_info.data['age']))
         save_info(ID=ID, key="country", value=form.additional_info.data['country'])
-        save_info(ID=ID, key="zip", value=int(form.additional_info.data['postcode']))
-        return redirect(url_for('success'), perm_id=get_data(ID))
+        if form.additional_info.data['postcode']:
+            save_info(ID=ID, key="zip", value=int(form.additional_info.data['postcode']))
+        #return redirect(url_for('success'), perm_id=get_data(ID))
+        return render_template('success.html', perm_id=get_data(ID))
 
 
     return render_template('status.html',
