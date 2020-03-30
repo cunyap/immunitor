@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% set active_page = "" %}
+{% block body_class %}main main-index{% endblock %}
+
+<!--
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
+{% endblock %}
+-->
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12" style="text-align: justify;">
+       <!-- <div class="formwrapper"> -->
+            <h2 class="page-header">FrequentlyAskedQuestions</h2>
+        <h3 class="page-header">Infected</h3>
+        <h5 class="page-header">You identify as infected if you currently have viruses that are likely replicating in your body. Current testing methods identify the viral genome in nasal swabs. They work by breaking open the viral envelope to expose and amplify the viral genome. This makes identification of as many as a single virus copy possible (FYI: methods used here are PC and reverse transcription).</h5>
+        <h3 class="page-header">Immune</h3>
+        <h5 class="page-header">During viral infection, the immune system starts producing antibodies against proteins exposed on the viral envelope to fight back the infection. Upon viral clearance, the produced antibodies - specific to the virus proteins - reside in the body and, similar to vaccinations, neutralise the same viruses during reinfection. This immune system memory mostly lasts for 1-5 years. Current immunity tests are based on blood samples and bind in-blood antibodies. Recognition of virus specific antibodies is achieved by exposing various SARS-CoV-2 specific proteins on the test strip surface that will facilitate binding of specific antibodies (bound antibodies can be visualised through antibody detecting reagents). </h5>
+            </div>
+
+</div>
+
+{% endblock %}
