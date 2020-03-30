@@ -16,7 +16,12 @@
   <div class="col-xs-12" style="text-align: justify;">
     <div class="success-wrapper">
       <h2>SUCCESS!</h2>
-      <p>You've submitted a valid form. Your mother would be very proud of you.</p>
+      <p>Thank you so much for contributing. Keeping the finger on the pulse of the current infection status is crucial to fight Covid-19 and prevent future emergencies.
+      Just to be clear, we are only storing information that you provided through this form, nothing more.
+      Here's an hamster eating a cupcake, you deserve this.</p>
+      <img src="{{url_for('static', filename='hamster.gif')}}" align="middle" width="200"/>
+      <p>One more thing if you'd like to modify/add data to this entry, keep this code (a screenshot works), so we don't have to know any info from you.</p>
+      <img src="{{ qrcode({{perm_id}}, back_color='white') }}">
     </div>
   </div>
 </div>

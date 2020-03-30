@@ -11,35 +11,39 @@
 {% block content %}
 <div class="row">
     <div class="col-xs-12" style="text-align: justify;">
-       <!-- <div class="formwrapper"> -->
-            <h2 class="page-header">What is your current status?</h2>
-            <form method="POST" action="/status">
-                {{ form.csrf_token }}
-                {{ form.infection_status}}
-            </form>
-            {% if s=="status_not_registered" %}
-            {%endif%}
-            {% if s=="status_registered" %}
-            <form method="POST" action="/status">
-                {{form.contribution}}
-            </form>
-            {%endif%}
-            {% if c=="contribution_y" %}
-            <form method="POST" action="/status">
-                {{form.additional_info}}
-                {% if form.additional_info.country.errors %}
-                <ul class="errors">
-                    {% for error in form.additional_info.country.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </form>
-            {%endif%}
+<h2 class="title">First, do you have a test serial number and are you a robot?</h2>
+  <form method="POST" action="/status">
+      {{ form.csrf_token }}
+      {{ form.proof}}
+  </form>
+
+    {% if p=="proof_submitted" %}
+  <h2 class="title">What is your current status?</h2>
+  <form method="POST" action="/status">
+      {{ form.infection_status}}
+  </form>
+{%endif%}
+{% if s=="status_registered" %}
+    <h2 class="title">Would you like to contribute more?</h2>
+  <form method="POST" action="/status">
+      {{form.contribution}}
+        </form>
+{%endif%}
+{% if c=="contribution_y" %}
+  <form method="POST" action="/status">
+      {{form.additional_info}}
+      {% if form.additional_info.errors %}
+          <ul class="errors">
+            {% for error in form.additional_info.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        </form>
+{%endif%}
 
         </div>
     </div>
 
-</div>
 
 {% endblock %}
