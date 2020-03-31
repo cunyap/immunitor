@@ -13,3 +13,4 @@ plotly
 pandas
 pybis
 flask_recaptcha
+waitress
