@@ -12,3 +12,4 @@ pgeocode
 plotly
 pandas
 pybis
+flask_recaptcha

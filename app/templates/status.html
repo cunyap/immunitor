@@ -2,55 +2,124 @@
 {% set active_page = "" %}
 {% block body_class %}main main-index{% endblock %}
 
-
+<!--
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
 {% endblock %}
+-->
 
 
 
 {% block content %}
-<div class="form-group">
+<div class="form">
     <div class="col-xs-12" style="text-align: justify;">
-<h2 class="title">First, do you have a test serial number and are you a robot?</h2>
-  <form method="POST" action="/status">
-      {{ form.csrf_token }}
-      {{ form.proof.proof}}
-      {{ form.proof.proceed}}
-  </form>
+        <h2 class="title">First, do you have a test serial number?</h2>
 
-    {% if p=="proof_submitted" %}
-  <h2 class="title">What is your current status?</h2>
-  <form method="POST" action="/status">
-      {{ form.infection_status.non_infected}}
-      {{ form.infection_status.infected}}
-      {{ form.infection_status.immune}}
+        <form method="POST" action="/status">
 
-  </form>
-{%endif%}
-{% if s=="status_registered" %}
-    <h2 class="title">Would you like to contribute more?</h2>
-  <form method="POST" action="/status">
-      {{form.contribution.yes}}
-      {{form.contribution.no}}
+            <div class="form-group col-md-6">
+                {{ form.proof.csrf_token}}
+                {{ form.proof.proof(class_="form-control") }}
+                {{ form.proof.proceed(class_="form-control") }}
+            </div>
+            <br>
+            <!--
+            {{ form.csrf_token }}
+            {{ form.proof.proof}}
+            {{ form.proof.proceed}} -->
+        </form>
+
+        {% if p=="proof_submitted" %}
+
+        <br>
+
+        <form method="POST" action="/status">
+
+            <br>
+            <div class="form-row">
+                <div class="form-group row">
+                    <br>
+                    <h2 class="title">What is your current status?</h2>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ form.infection_status.csrf_token}}
+                    {{ form.infection_status.non_infected(class_="form-control") }}
+                    <small id="nonInfectedHelp" class="form-text text-muted">
+                        Your are healthy and/or did not get tested yet.
+                    </small>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ form.infection_status.infected(class_="form-control") }}
+                    <small id="infectedHelp" class="form-text text-muted">
+                        Your are infected and got tested positive.
+                    </small>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ form.infection_status.immune(class_="form-control") }}
+                    <small id="immuneHelp" class="form-text text-muted">
+                        Your are recovered and/or got tested positive with an antibody test..
+                    </small>
+                </div>
+            </div>
+
+
+            <!--
+            {{ form.infection_status.non_infected}}
+            {{ form.infection_status.infected}}
+            {{ form.infection_status.immune}} -->
 
         </form>
-{%endif%}
-{% if c=="contribution_y" %}
-  <form method="POST" action="/status">
-      {{form.additional_info}}
-      {% if form.additional_info.errors %}
-          <ul class="errors">
-            {% for error in form.additional_info.errors %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-        </form>
-{%endif%}
+        {%endif%}
+        {% if s=="status_registered" %}
 
-        </div>
+        <form method="POST" action="/status">
+
+            <div class="form-row">
+                <div class="row">
+                    <h2 class="title">Would you like to contribute more?</h2>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ form.contribution.csrf_token}}
+                    {{form.contribution.yes(class_="form-control")}}
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{form.contribution.no(class_="form-control")}}
+                </div>
+            </div>
+            <!--
+            {{form.contribution.yes}}
+            {{form.contribution.no}}
+            -->
+
+        </form>
+        {%endif%}
+        {% if c=="contribution_y" %}
+        <form method="POST" action="/status">
+
+            {% if c %}
+            <div class="form-group col-md-6">
+                <p> <h4>{{form.additional_info.age.label}} {{ form.additional_info.age(class_="form-control") }} </h4></p>
+                <p> <h4>{{form.additional_info.gender.label}} {{ form.additional_info.gender(class_="form-control") }} </h4></p>
+                <p> <h4>{{form.additional_info.job.label}} {{ form.additional_info.job(class_="form-control") }} </h4></p>
+                <p> <h4>{{form.additional_info.country.label}} {{ form.additional_info.country(class_="form-control") }} </h4></p>
+                <p> <h4>{{form.additional_info.postcode.label}} {{ form.additional_info.postcode(class_="form-control") }} </h4></p>
+                {{ form.additional_info.recaptcha(class_="form-control") }}
+                {{ form.additional_info.submit(class_="form-control") }}
+            </div>
+            {% endif %}
+
+            {% if form.additional_info.errors %}
+            <ul class="errors">
+                {% for error in form.additional_info.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+        {%endif%}
+
     </div>
+</div>
 
 
 {% endblock %}

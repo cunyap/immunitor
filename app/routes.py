@@ -96,8 +96,10 @@ def status():
         if form.additional_info.data['postcode']:
             save_info(ID=ID, key="zip", value=int(form.additional_info.data['postcode']))
         # return redirect(url_for('success'), perm_id=get_data(ID))
-        permID = get_data(ID)
-        return redirect(url_for('success', permID=permID))
+        # if recaptcha.verify():
+            permID = get_data(ID)
+            return redirect(url_for('success', permID=permID))
+
 
     return render_template('status.html',
                            form=form,

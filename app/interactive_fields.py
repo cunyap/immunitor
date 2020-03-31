@@ -16,7 +16,6 @@ class Status(FlaskForm):
 
 class Proof(FlaskForm):
     proof = StringField('Serial Number: ')
-    recaptcha = RecaptchaField()
     proceed = SubmitField('Proceed')
 
 
@@ -45,7 +44,7 @@ class MoreInfo(FlaskForm):
                                ('Academia', 'Academia')])
     country = StringField("Country: ", validators=[validate_country])
     postcode = StringField("Post Code: ", validators=[])
-
+    recaptcha = RecaptchaField()
     submit = SubmitField('Submit')
 
 class KeepInTouch(FlaskForm):
