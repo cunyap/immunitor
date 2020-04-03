@@ -3,7 +3,7 @@ from wtforms import (StringField,
                      SubmitField,
                      SelectField,
                      FormField,
-                     FieldList)
+                     FileField)
 from wtforms.validators import (DataRequired,
                                 Email, ValidationError, Regexp)
 
@@ -53,11 +53,21 @@ class KeepInTouch(FlaskForm):
         Email(message='Not a valid email address.')])
     submit = SubmitField('Submit')
 
+class ReturningUser(FlaskForm):
+    image = FileField(u"Upload a screenshot or QR code picture: ")
+    code = StringField('Or paste here the corresponding code: ')
+    confirm = SubmitField('Confirm')
+    new_user = SubmitField('New user')
+
 class QuestioningEverything(FlaskForm):
     proof = FormField(Proof)
     infection_status = FormField(Status)
     contribution = FormField(ContributeMore)
     additional_info = FormField(MoreInfo)
+
+
+
+
 
 
 

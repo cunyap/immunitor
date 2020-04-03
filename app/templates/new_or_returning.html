@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% set active_page = "" %}
+{% block body_class %}main main-index{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" type="text/css">
+{% endblock %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12" style="text-align: justify;">
+<h2 class="title">Hi!</h2>
+        <br>
+        <br>
+        <p>Did you already submit an entry?  If so upload the screenshot of the QR code or paste the code</p>
+  <form method="POST" action="/" enctype="multipart/form-data">
+      {{ form.hidden_tag()}}
+      {{ form.image}}
+      <br>
+      {{ form.code}}
+      <br>
+      <br>
+      {{ form.confirm}}
+      <br>
+      <br>
+      {{ form.new_user}}
+  </form>
+        </div>
+    </div>
+
+{% endblock %}

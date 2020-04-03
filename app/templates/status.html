@@ -13,8 +13,8 @@
 <div class="row">
     <div class="col-xs-12" style="text-align: justify;">
 <h2 class="title">First, do you have a test serial number and are you a robot?</h2>
-  <form method="POST" action="/status">
-      {{ form.csrf_token }}
+  <form method="POST" action="/status" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
       {{ form.proof.proof}}
       {{ form.proof.proceed}}
   </form>
