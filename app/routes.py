@@ -139,14 +139,13 @@ def status():
 
 @app.route('/geojson-features', methods=['GET'])
 def get_all_points():
-    d, df = get_data_from_json()
-    return Response(d, mimetype='application/json')
+    d, df, ddf, _ = get_data_from_json()
+    return Response(ddf, mimetype='application/json')
 
 
 @app.route('/visuals')
 def visuals():
-    _, df = get_data_from_json()
-    print(df)
+    _, df, _, _ = get_data_from_json()
     graphJSON = create_plot(df)
     return render_template('visuals.html',
                            template='signup-template', plot=graphJSON)

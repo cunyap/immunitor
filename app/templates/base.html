@@ -10,7 +10,9 @@
     <title>{{ config['APP_NAME'] }}</title>
     <meta name="description" content="Immunitor.">
     <meta name="viewport" content="width=device-width">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -27,8 +29,6 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-
-</head>
 
 <div class="alert alert-danger" role="alert">
   Please note this is only an draft of our final project, data are currently not being collected, stored or analyzed.

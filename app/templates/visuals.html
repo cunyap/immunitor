@@ -45,20 +45,21 @@ var circleProp = { color: 'red',
 
 axios.get('/geojson-features')
     .then(response => {
-        console.log(response.data)
-        console.log(response.data[0]['latitude'])
-
+        // console.log(response.data)
         const entries = Object.entries(response.data)
 
         for (const [key, val] of entries) {
 
         if (val['latitude']) {
-        const infoPanel = `<h1>My ${val['id']}</h1>
-                   <p>This is information about the marker</p>
+        const infoPanel = `<h4>${val['place_name']} (${val['postal_code']}) </h4>
+                   <hr>
                    <ul>
-                   <li>Info 1</li>
-                   <li>Info 2</li>
-                   <li>Info 3</li>
+                   <p style="color:rgb(17,205,239)"> <b> ${val['diagnostic0']} </> healthy <p>
+                   <p style="color:rgb(17,205,239)"> <b> ${val['diagnostic1']} </> sick (other disease) </li>
+                   <p style="color:rgb(251,99,64)"> <b> ${val['diagnostic2']} </> sick (probably covid19) </li>
+                   <p style="color:rgb(245,54,92)"> <b> ${val['diagnostic3']} </>  sick (covid19 confirmed) </li>
+                   <p style="color:rgb(45,206,137)"> <b> ${val['diagnostic4']} </>  recovered (not confirmed) </li>
+                   <p style="color:rgb(45,206,137)"> <b> ${val['diagnostic5']}</>  recovered (confirmed) </li>
                    </ul>`;
 
         L.circle([val['latitude'], val['longitude']], circleProp).bindTooltip(infoPanel).addTo(map);
