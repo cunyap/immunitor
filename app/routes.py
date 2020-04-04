@@ -15,6 +15,7 @@ import os
 # def home():
 #     return render_template('index.html',
 #                            template='home-template')
+#                            template='home-template')
 
 # ID = dt.now().strftime('%c')
 # ID = session['_id']
@@ -115,12 +116,8 @@ def status():
                                s="status_registered",
                                c="contribution_y")
     if 'contribution-no' in request.form:
-<<<<<<< HEAD
         permID = get_data(ID)
         return redirect(url_for('success', permID=permID))
-=======
-        return redirect(url_for('success'))
->>>>>>> remotes/origin/EG_QRcode
 
     if 'additional_info-submit' in request.form:
         save_info(ID=ID, key="job", value=form.additional_info.data['job'])
@@ -154,12 +151,7 @@ def visuals():
     return render_template('visuals.html',
                            template='signup-template', plot=graphJSON)
 
-<<<<<<< HEAD
 @app.route('/')
-=======
-
-@app.route('/%')
->>>>>>> remotes/origin/EG_QRcode
 def main():
     return redirect(url_for('status'))
 
