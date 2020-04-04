@@ -27,7 +27,7 @@
 
 <script>
 
-var map = L.map('map').setView([46.9476, 7.4065], 13)
+var map = L.map('map').setView([46.8341, 8.2892], 8)
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
         map.panTo(L.latLng(position.coords.latitude, position.coords.longitude))
@@ -43,7 +43,7 @@ var circleProp = { color: 'red',
     radius: 20};
 
 
-axios.get('http://127.0.0.1:5000/geojson-features')
+axios.get('/geojson-features')
     .then(response => {
         console.log(response.data)
         console.log(response.data[0]['latitude'])
