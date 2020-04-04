@@ -26,7 +26,7 @@ setup(
     keywords='Immunitor',
     packages=find_packages(),
     install_requires=['Flask',
-                      'Flask-WTF', 
+                      'Flask-WTF',
                       "click",
                       "itsdangerous",
                       "Jinja2",
