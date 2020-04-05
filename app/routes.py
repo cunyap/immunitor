@@ -64,6 +64,7 @@ def home():
 
 
 @app.route('/status', methods=('GET', 'POST'))
+@app.route('/status/<id>', methods=('GET', 'POST'))
 def status():
     form = QuestioningEverything()
     # if 'returning-submit' in request.form:
@@ -79,7 +80,8 @@ def status():
         return render_template('status.html',
                                form=form,
                                template='form-template',
-                               p="proof_submitted")
+                               p="proof_submitted",
+                               id='#newUser')
 
     # if form.infection_status.validate(form):
     if 'infection_status-infected' in request.form:
@@ -155,9 +157,26 @@ def main():
     return redirect(url_for('status'))
 
 
-@app.route('/index')
+@app.route('/index', methods=('GET', 'POST'))
 def index():
-    return render_template('index.html', template='base')
+    form = ReturningUser()
+    global ID
+    if form.validate_on_submit():
+        if 'confirm' in request.form:
+            file = form.image.data
+            filename = secure_filename(file.filename)
+            d = decode(Image.open(file))
+            ID = str(d[0].data)
+            print(ID)
+            create_infofile(ID)
+            return redirect(url_for('status#newUser'))
+        elif 'new_user' in request.form:
+            ID = "test_user"
+            create_infofile(ID)
+            return redirect(url_for('status#newUser'))
+    return render_template('index.html',
+                           form=form,
+                           template='base')
 
 
 @app.route('/terms')
