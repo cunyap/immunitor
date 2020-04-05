@@ -150,7 +150,7 @@ def visuals():
     _, df, _, _ = get_data_from_json()
     graphJSON = create_plot(df)
     return render_template('visuals.html',
-                           template='signup-template', plot=graphJSON)
+                           template='signup-template', plot=graphJSON, scrollToAnchor='visuals')
 
 @app.route('/')
 def main():
@@ -181,12 +181,12 @@ def index():
 
 @app.route('/terms')
 def terms():
-    return render_template('terms.html', template='base')
+    return render_template('terms.html', template='base', scrollToAnchor='terms')
 
 
 @app.route('/faq')
 def faq():
-    return render_template('faq.html', template='base')
+    return render_template('faq.html', template='base', scrollToAnchor='faq')
 
 
 def get_data(ID):

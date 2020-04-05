@@ -4,6 +4,15 @@
 {% block body_class %}main main-index{% endblock %}
 
 {% block content %}
+{% if scrollToAnchor %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.location.hash = '#{{ scrollToAnchor }}';
+    });
+</script>
+{% endif %}
+
+
 <head>
     <title>Visuals</title>
     <meta charset="utf-8">
@@ -15,22 +24,24 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
-<section id="visuals" class="about-section text-center">
+
+<section id="visuals" class="projects-section bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <h2>Let's display some nice maps here!</h2>
+                <h2>Visualizing the retrieved data in real time.</h2>
 
                 <div class="chart" id="bargraph">
                     <script type="text/javascript">
         var graphs = {{plot | safe}};
         Plotly.plot('bargraph',graphs || {});
     </script>
-                </div>
+                    <br>
+                    <hr class="d-none d-lg-block mb-0 ml-0">
+                    <br>
+                    <div id="map" style="height: 80vh;"></div>
 
-                <div id="map" style="height: 80vh;"></div>
-
-                <script>
+                    <script>
 
 var map = L.map('map').setView([46.8341, 8.2892], 8)
 if (navigator.geolocation) {
@@ -72,9 +83,9 @@ axios.get('/geojson-features')
         }
     })
 </script>
+                </div>
             </div>
         </div>
-    </div>
 </section>
 {% endblock %}
 
