@@ -64,7 +64,6 @@ def home():
 
 
 @app.route('/status', methods=('GET', 'POST'))
-@app.route('/status/<id>', methods=('GET', 'POST'))
 def status():
     form = QuestioningEverything()
     # if 'returning-submit' in request.form:
@@ -81,7 +80,7 @@ def status():
                                form=form,
                                template='form-template',
                                p="proof_submitted",
-                               id='#newUser')
+                               scrollToAnchor="proceed")
 
     # if form.infection_status.validate(form):
     if 'infection_status-infected' in request.form:
@@ -91,7 +90,7 @@ def status():
                                form=form,
                                template='base',
                                p="proof_submitted",
-                               s="status_registered")
+                               s="status_registered", scrollToAnchor='infected')
     elif 'infection_status-immune' in request.form:
         status = 2
         save_info(ID=ID, key="diagnostic", value=status)
@@ -99,7 +98,7 @@ def status():
                                form=form,
                                template='base',
                                p="proof_submitted",
-                               s="status_registered")
+                               s="status_registered", scrollToAnchor='immune')
     elif 'infection_status-non_infected' in request.form:
         status = 0
         save_info(ID=ID, key="diagnostic", value=status)
@@ -107,7 +106,7 @@ def status():
                                form=form,
                                template='base',
                                p="proof_submitted",
-                               s="status_registered")
+                               s="status_registered", scrollToAnchor='nonInfected')
 
     # if form.contribution.validate(form):
     if 'contribution-yes' in request.form:
@@ -116,7 +115,7 @@ def status():
                                template='base',
                                p="proof_submitted",
                                s="status_registered",
-                               c="contribution_y")
+                               c="contribution_y", scrollToAnchor="contributeMore")
     if 'contribution-no' in request.form:
         permID = get_data(ID)
         return redirect(url_for('success', permID=permID))
@@ -136,7 +135,7 @@ def status():
     return render_template('status.html',
                            form=form,
                            template='base',
-                           s="status_not_registered")
+                           s="status_not_registered", scrollToAnchor="proceed")
 
 
 @app.route('/geojson-features', methods=['GET'])

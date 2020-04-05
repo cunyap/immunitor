@@ -10,8 +10,17 @@
 -->
 
 {% block content %}
+
+{% if scrollToAnchor %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.location.hash = '#{{ scrollToAnchor }}';
+    });
+</script>
+{% endif %}
+
 <div class="form">
-    <div id="newUser" class="col-xs-12" style="text-align: justify; color: white">
+    <div id="proceed" class="col-xs-12" style="text-align: justify; color: white">
 
         <h2 class="title">Have you been tested?</h2>
 
@@ -41,20 +50,20 @@
                     <br>
                     <h2 class="title">What is your current status?</h2>
                 </div>
-                <div class="form-group col-md-4 mb-3">
+                <div id="infected" class="form-group col-md-4 mb-3">
                     {{ form.infection_status.csrf_token}}
                     {{ form.infection_status.non_infected(class="btn btn-primary") }}
                     <small id="nonInfectedHelp" class="form-text text-muted">
                         You are healthy and/or did not get tested yet.
                     </small>
                 </div>
-                <div class="form-group col-md-4 mb-3">
+                <div id="nonInfected" class="form-group col-md-4 mb-3">
                     {{ form.infection_status.infected(class="btn btn-primary") }}
                     <small id="infectedHelp" class="form-text text-muted">
                         You are infected and got tested positive.
                     </small>
                 </div>
-                <div class="form-group col-md-4 mb-3">
+                <div id="immune" class="form-group col-md-4 mb-3">
                     {{ form.infection_status.immune(class="btn btn-primary") }}
                     <small id="immuneHelp" class="form-text text-muted">
                         You are recovered and/or got tested positive with an antibody test.
