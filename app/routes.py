@@ -58,7 +58,7 @@ def home():
             ID = "test_user"
             create_infofile(ID)
             return redirect(url_for('status'))
-    return render_template('new_or_returning.html',
+    return render_template('index.html',
                            form=form,
                            template='base')
 
@@ -157,7 +157,7 @@ def main():
 
 @app.route('/index')
 def index():
-    return redirect(url_for('status'))
+    return render_template('index.html', template='base')
 
 
 @app.route('/terms')
