@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
-<!--
-{% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/success.css') }}" rel="stylesheet" type="text/css">
-{% endblock %}
--->
-
 {% block content %}
+
+{% if scrollToAnchor %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.location.hash = '#{{ scrollToAnchor }}';
+    });
+</script>
+{% endif %}
+
 <!-- Success Alert -->
 <div class="alert alert-success alert-dismissible fade show">
-    <strong>Success!</strong> Your message has been sent successfully.
+    <strong>Success!</strong> Your case has been registered successfully.
     <button type="button" class="close" data-dismiss="alert">&times;</button>
 </div>
-<div class="row">
+<div id="success" class="row">
   <div class="col-xs-12" style="text-align: justify;">
     <div class="success-wrapper">
       <h2>SUCCESS!</h2>
@@ -32,7 +35,8 @@
         <p class="mb-0"> One more thing if you'd like
           to modify/add data to this entry, keep this code (a screenshot works),
           so we don't have to know any info from you.
-          <img src="{{ qrcode( perm_id , back_color='white') }}">.</p>
+          </p>
+        <img src="{{ qrcode( perm_id , back_color='white') }}">
       </div>
 
       {% endif %}

@@ -40,7 +40,7 @@
         <div class="form">
             <div class="col-xs-12" style="text-align: justify; color: white">
 
-                <form method="POST" action="/" enctype="multipart/form-data">
+                <form method="POST" action="/returning" enctype="multipart/form-data">
                     <div class="col-xs-12">
                         <h2 class="title ml-5 ml-lg-0" style="color:black">Did you already submit an entry?</h2>
                         <p style="color:black"> If so upload the screenshot of the QR code or paste the code</p>
@@ -59,21 +59,21 @@
                         </div>
                         <div class="custom-file">
                             <!-- <input type="file" class="custom-file-input" id="inputGroupFile01"> -->
-                            {{ form.retform.image(type="file", class="custom-file-input", id="inputGroupFile01")}}
+                            {{ form.image(type="file", class="custom-file-input", id="inputGroupFile01")}}
                             <label class="custom-file-label" for="inputGroupFile01">Choose the screenshot of the QR code from your device</label>
                         </div>
                     </div>
                     <p style="color:black"> or </p>
-                    {{ form.retform.code(class_="form-control", placeholder="for example: 20200404224344252-113")}}
+                    {{ form.code(class_="form-control", placeholder="for example: 20200404224344252-113")}}
                     <small id="codeHelp" class="form-text text-muted">
                         Paste the id encoded in the QR code you received at the end of your last submission above.
                     </small>
                     <br>
                     <br>
-                    {{ form.retform.confirm(class="btn btn-primary")}}
+                    {{ form.confirm(class="btn btn-primary")}}
                     <br>
                     <br>
-                    {{ form.retform.return_landing(class="btn btn-primary")}}
+                    {{ form.return_landing(class="btn btn-primary")}}
                 </form>
             </div>
         </div>

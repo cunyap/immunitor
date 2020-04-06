@@ -25,7 +25,8 @@ ID = 0
 @app.route('/success', methods=('GET', 'POST'))
 def success():
     return render_template('success.html',
-                           template='success-template')
+                           template='success-template',
+                           scrollToAnchor='success')
 
 
 def create_infofile(ID):
@@ -43,33 +44,33 @@ def save_info(ID, key, value):
 
 @app.route('/returning', methods=('GET', 'POST'))
 def returning():
-    form = QuestioningReturning()
+    form = ReturningUser()
     global ID
-    #if form.validate_on_submit():
-    if 'confirm' in request.form:
-        file = form.retform.image.data
-        filename = secure_filename(file.filename)
-        if filename:
-            d = decode(Image.open(file))
-            if d:
-                ID = str(d[0].data)
-                print(ID)
-                create_infofile(ID)
-                return redirect(url_for('status'))
+    if form.validate_on_submit():
+        if 'confirm' in request.form:
+            file = form.image.data
+            filename = secure_filename(file.filename)
+            if filename:
+                d = decode(Image.open(file))
+                if d:
+                    ID = str(d[0].data)
+                    print(ID)
+                    create_infofile(ID)
+                    return redirect(url_for('status'))
+                else:
+                    return render_template('returning.html',
+                                           form=form,
+                                           template='base',
+                                           scrollToAnchor='warningNoFile',
+                                           error='noQR')
             else:
                 return render_template('returning.html',
                                        form=form,
                                        template='base',
                                        scrollToAnchor='warningNoFile',
-                                       error='noQR')
-        else:
-            return render_template('returning.html',
-                                   form=form,
-                                   template='base',
-                                   scrollToAnchor='warningNoFile',
-                                   error='noFile')
-    elif 'return_landing' in request.form:
-        return redirect(url_for('landing'))
+                                       error='noFile')
+        elif 'return_landing' in request.form:
+            return redirect(url_for('landing'))
 
     return render_template('returning.html',
                            form=form,
