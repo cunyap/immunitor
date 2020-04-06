@@ -25,7 +25,7 @@
         <div class="form">
             <div id="proceed" class="col-xs-12" style="text-align: justify; color: white">
 
-                <h2 class="title ml-5 ml-lg-0" style="color:black">Have you been tested?</h2>
+                <h2 class="title ml-3 ml-lg-0" style="color:black">Have you been tested?</h2>
 
                 <form method="POST" action="/status">
 
@@ -55,7 +55,7 @@
                     <div class="form-row">
                         <div class="col-xs-12">
                             <br>
-                            <h2 class="title ml-5 ml-lg-0" style="color:black">What is your current status?</h2>
+                            <h2 class="title ml-3 ml-lg-0" style="color:black">What is your current status?</h2>
                         </div>
                         <div class="row">
                             <div id="infected" class="form-group col-md-4 mb-3 ml-3 ml-lg-0">
@@ -95,16 +95,15 @@
                     <div id="contributeMore" class="form-row">
                         <div class="col-xs-12">
                             <br>
-                            <h2 class="title ml-5 ml-lg-0" style="color:black">Would you like to contribute more?</h2>
-                        </div>
-                        <div class="row">
-                            <br>
-                            <div id="yes" class="form-group col-md-4 mb-3 ml-3 ml-lg-0">
+                            <h2 class="title ml-3 ml-lg-0" style="color:black">Would you like to contribute more?</h2>
+                            <div class="row">
+                                <div id="yes" class="form-group col-md-4 mb-3 ml-3 ml-lg-0">
+                                    {{form.contribution.yes(class="btn btn-primary btn-group btn-group-lg")}}
+                                </div>
 
-                                {{form.contribution.yes(class="btn btn-primary btn-group btn-group-lg")}}
-                            </div>
-                            <div id="no" class="form-group col-md-4 mb-3 ml-3 ml-lg-0">
-                                {{form.contribution.no(class="btn btn-primary btn-group btn-group-lg")}}
+                                <div id="no" class="form-group col-md-4 mb-3 ml-3 ml-lg-0">
+                                    {{form.contribution.no(class="btn btn-primary btn-group btn-group-lg")}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,11 +114,20 @@
 
                     {% if c %}
                     <div class="form-group btn-group-vertical col-md-6 ml-3 mr-3 ml-lg-0" style="color:black">
-                        <p> <h4>{{ form.additional_info.age(class="btn btn-primary") }} {{form.additional_info.age.label}}  </h4></p>
-                        <p> <h4>{{ form.additional_info.gender(class="btn btn-primary") }} {{form.additional_info.gender.label}} </h4></p>
-                        <p> <h4>{{ form.additional_info.job(class="btn btn-primary") }} {{form.additional_info.job.label}} </h4></p>
-                        <p> <h4>{{form.additional_info.country.label}} {{ form.additional_info.country(class_="form-control") }} </h4></p>
-                        <p> <h4>{{form.additional_info.postcode.label}} {{ form.additional_info.postcode(class_="form-control") }} </h4></p>
+                        <div class="form-group">
+                            <label for="ageLabel">{{form.additional_info.age.label}} </label>
+                            <p> {{ form.additional_info.age(class="btn btn-primary", id="ageLabel", style="max-width: 200px;") }} </p>
+                        </div>
+                           <div class="form-group">
+                            <label for="generLabel">{{form.additional_info.gender.label}} </label>
+                            <p> {{ form.additional_info.gender(class="btn btn-primary", id="genderLabel", style="max-width: 200px;") }} </p>
+                        </div>
+                           <div class="form-group">
+                            <label for="jobLabel">{{form.additional_info.job.label}} </label>
+                            <p> {{ form.additional_info.job(class="btn btn-primary", id="jobLabel", style="max-width: 200px;") }} </p>
+                        </div>
+                        <p> {{form.additional_info.country.label}} {{ form.additional_info.country(class_="form-control") }} </p>
+                        <p> {{form.additional_info.postcode.label}} {{ form.additional_info.postcode(class_="form-control") }} </p>
                         {{ form.additional_info.recaptcha(class_="form-control") }}
                         <p> <h4>{{ form.additional_info.submit(class_="btn btn-primary") }} </h4></p>
                     </div>

@@ -32,14 +32,14 @@ class MoreInfo(FlaskForm):
         if field.data not in countries:
             raise ValidationError('Not a valid country.')
 
-    age = SelectField('Age', choices=[(str(i), str(i)) for i in range(0,120,1)])
+    age = SelectField('Age:', choices=[(str(i), str(i)) for i in range(0,120,1)])
     #age = StringField("Age: ", validators=[])
-    gender = SelectField('Gender',
+    gender = SelectField('Gender:',
                          choices=[('-','-'),
                                   ('F', 'Female'),
                                   ('M', 'Male'),
                                   ('X', 'Other')])
-    job = SelectField('Job',
+    job = SelectField('Job:',
                       choices=[('-','-'),
                                ('Teacher', 'Teacher'),
                                ('Health-care Worker', 'Health-care Worker'),

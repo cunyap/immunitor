@@ -22,6 +22,7 @@ import os
 
 ID = 0
 
+
 @app.route('/success', methods=('GET', 'POST'))
 def success():
     return render_template('success.html',
@@ -30,15 +31,15 @@ def success():
 
 
 def create_infofile(ID):
-    f = open("app/static/{}.json".format(ID), "w+")
+    f = open("app/static/{}.json".format(ID.decode("utf-8")), "w+")
     f.write('{}')
 
 
 def save_info(ID, key, value):
-    with open("app/static/{}.json".format(ID), 'r') as file:
+    with open("app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
         comments = json.load(file)
     comments[key] = value
-    with open("app/static/{}.json".format(ID), 'w+') as outfile:
+    with open("app/static/{}.json".format(ID.decode("utf-8")), 'w+') as outfile:
         json.dump(comments, outfile)
 
 
@@ -53,7 +54,7 @@ def returning():
             if filename:
                 d = decode(Image.open(file))
                 if d:
-                    ID = str(d[0].data)
+                    ID = d[0].data
                     print(ID)
                     create_infofile(ID)
                     return redirect(url_for('status'))
@@ -229,7 +230,7 @@ def info():
 
 
 def get_data(ID):
-    with open("app/static/{}.json".format(ID), 'r') as file:
+    with open("app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
         comments = json.load(file)
     o = establish_db_connection()
     perm_id = register_new_case(o=o, data=comments)
