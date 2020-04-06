@@ -2,7 +2,7 @@ import json
 from flask import url_for, render_template, redirect, make_response, request, session, Response
 from flask import current_app as app
 from werkzeug.utils import secure_filename
-from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch, QuestioningEverything, ReturningUser
+from .interactive_fields import Status, ContributeMore, MoreInfo, KeepInTouch, QuestioningEverything, ReturningUser, QuestioningReturning
 from datetime import datetime as dt
 from .utils import get_data_from_json
 from .visualization import create_plot
@@ -41,24 +41,37 @@ def save_info(ID, key, value):
         json.dump(comments, outfile)
 
 
-@app.route('/', methods=('GET', 'POST'))
-def home():
-    form = ReturningUser()
+@app.route('/returning', methods=('GET', 'POST'))
+def returning():
+    form = QuestioningReturning()
     global ID
-    if form.validate_on_submit():
-        if 'confirm' in request.form:
-            file = form.image.data
-            filename = secure_filename(file.filename)
+    #if form.validate_on_submit():
+    if 'confirm' in request.form:
+        file = form.retform.image.data
+        filename = secure_filename(file.filename)
+        if filename:
             d = decode(Image.open(file))
-            ID = str(d[0].data)
-            print(ID)
-            create_infofile(ID)
-            return redirect(url_for('status'))
-        elif 'new_user' in request.form:
-            ID = "test_user"
-            create_infofile(ID)
-            return redirect(url_for('status'))
-    return render_template('index.html',
+            if d:
+                ID = str(d[0].data)
+                print(ID)
+                create_infofile(ID)
+                return redirect(url_for('status'))
+            else:
+                return render_template('returning.html',
+                                       form=form,
+                                       template='base',
+                                       scrollToAnchor='warningNoFile',
+                                       error='noQR')
+        else:
+            return render_template('returning.html',
+                                   form=form,
+                                   template='base',
+                                   scrollToAnchor='warningNoFile',
+                                   error='noFile')
+    elif 'return_landing' in request.form:
+        return redirect(url_for('landing'))
+
+    return render_template('returning.html',
                            form=form,
                            template='base')
 
@@ -131,7 +144,6 @@ def status():
         permID = get_data(ID)
         return redirect(url_for('success', permID=permID))
 
-
     return render_template('status.html',
                            form=form,
                            template='base',
@@ -153,7 +165,7 @@ def visuals():
 
 @app.route('/')
 def main():
-    return redirect(url_for('status'))
+    return redirect(url_for('landing'))
 
 
 @app.route('/index', methods=('GET', 'POST'))
@@ -162,18 +174,33 @@ def index():
     global ID
     if form.validate_on_submit():
         if 'confirm' in request.form:
+            file1 = open(
+                "C:\\Users\\Localadmin\\ownCloud\\SoftwareDev\\Python\\flask_demo\\codevscovid19_app\\app\\myfile.txt",
+                "w+")
+            # \n is placed to indicate EOL (End of Line)
+            file1.write("Hello \n")
+            file1.writelines(form.image.data)
+            file1.close()
             file = form.image.data
-            filename = secure_filename(file.filename)
-            d = decode(Image.open(file))
-            ID = str(d[0].data)
-            print(ID)
-            create_infofile(ID)
-            return redirect(url_for('status#newUser'))
+            # filename = secure_filename(file.filename)
+            if file is not None:
+                file1 = open("C:\\Users\\Localadmin\\ownCloud\\SoftwareDev\\Python\\flask_demo\\codevscovid19_app\\app\\myfile.txt", "w+")
+                # \n is placed to indicate EOL (End of Line)
+                file1.write("Hello \n")
+                file1.writelines(file)
+                file1.close()
+                # d = decode(Image.open(file))
+                # ID = str(d[0].data)
+                # print(ID)
+                # create_infofile(ID)
+                return redirect(url_for('status#newUser'))
+            else:
+                print('error')
         elif 'new_user' in request.form:
             ID = "test_user"
             create_infofile(ID)
             return redirect(url_for('status#newUser'))
-    return render_template('index.html',
+    return render_template('returning.html',
                            form=form,
                            template='base')
 
@@ -186,6 +213,18 @@ def terms():
 @app.route('/faq')
 def faq():
     return render_template('faq.html', template='base', scrollToAnchor='faq')
+
+@app.route('/batch')
+def batch():
+    return render_template('batch.html', template='base', scrollToAnchor='batch')
+
+@app.route('/landing')
+def landing():
+    return render_template('info.html', template='base')
+
+@app.route('/info')
+def info():
+    return render_template('info.html', template='base', scrollToAnchor='start')
 
 
 def get_data(ID):

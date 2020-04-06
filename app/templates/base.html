@@ -46,11 +46,7 @@
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-    <!--
-    <div class="alert alert-danger" role="alert">
-      Please note this is only an draft of our final project, data are currently not being collected, stored or analyzed.
-    </div>
-    -->
+
 
 <body id="body" class="{% block body_class %}{% endblock %}">
 
@@ -68,13 +64,16 @@
 
 <!-- Header -->
 <header class="masthead">
+    <div class="alert alert-danger" role="alert">
+        Please note this is only an draft of our final project, data are currently not being collected, stored or analyzed.
+    </div>
     <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
             <h1 class="mx-auto my-0 text-uppercase">Immunitor</h1>
-            <h2 class="text-white-50 mx-auto mt-2 mb-5">The immunity tracker.</h2>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">The immunity data repository.</h2>
             <a href="status" class="btn btn-primary js-scroll-trigger">Report new case</a>
-            <a href="index#about" class="btn btn-primary js-scroll-trigger">Update your case</a>
-            <a href="index#about" class="btn btn-primary js-scroll-trigger">Batch report / update cases</a>
+            <a href="returning#returning" class="btn btn-primary js-scroll-trigger">Update your case</a>
+            <a href="batch#batch" class="btn btn-primary js-scroll-trigger">Batch report / update cases</a>
         </div>
     </div>
 </header>
@@ -98,7 +97,7 @@
 
 
 {% set nav_bar_content = [
-(url_for('status'), 'status', 'Home'),
+(url_for('landing'), 'info', 'Home'),
 (url_for('visuals'), 'visuals', 'Visualization'),
 (url_for('faq'), 'help', 'FAQ')
 ] -%}
@@ -114,12 +113,17 @@
 
 
 {% block layout %} {% endblock -%}
-<footer class="footer">
-    {{ config['APP_NAME'] }} 2020  | <a href="{{ url_for('terms') }}">Terms and conditions</a>
+
+  <footer class="bg-black small text-center text-white-50">
+    <div class="container">
+          {{ config['APP_NAME'] }} 2020  | <a href="{{ url_for('terms') }}">Terms and conditions</a>
     |<a href="mailto:admin@admin.com"> Contact us </a>
     | Created by <a href="https://github.com/cunyap/immunitor">Immunitor team</a>
 
-</footer>
+    </div>
+  </footer>
+
+
 </div>
 </body>
 </html>

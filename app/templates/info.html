@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if scrollToAnchor %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.location.hash = '#{{ scrollToAnchor }}';
+    });
+</script>
+{% endif %}
+
+<!-- Projects Section -->
+<section id="start" class="projects-section bg-light">
+    <div class="container">
+
+        <!-- Featured Project Row -->
+        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+            <p class="text-black-50 mb-0">
+                Immunitor is a data repository platform, yes, another one! There are so many awesome self-reporting
+                tools being developed, however, being biotechnology scientists, we saw a need that was still unmet:
+                <b>centralized data collection</b>, <b>data validation</b> and <b>automated data processing</b>.
+
+                <br>
+                <br>
+                During the CodeVsCOVID19 Hackathon we prototyped a platform where
+                patients that get tested can submit their result and being in full control of how much additional
+                information they want to provide. However, the first question we ask is "Do you have a test
+                serial number?". We want to collect data as anonymously as possible, but we also want to be sure
+                that the entries are valid, that they don't get over counted, and that are compatible with bulk
+                uploads (in case hospitals also want to share data on Immunitor).
+
+                <br>
+                <br>
+                Using the test serial number allows:
+            </p>
+            <ul>
+                <li>to be completely anonymous: we don't need to know the name, the email or anything at all from the user. </li>
+                <li>to tag the data entry as validated.</li>
+                <li>to retrieve information about the type of test (PCR based vs antibody based).</li>
+                <li>to merge data from different cantons, manufacturers, clinics.</li>
+                <li>to collect the data that will come from home testing, that would otherwise be lost.</li>
+                <li>to have a well-organized database (on OpenBis) that can be accessed by researchers and authorities.</li>
+            </ul>
+
+            <p class="text-black-50 mb-0">
+                Additionally, we allow for subsequent entries, by providing a QR code that the user can store and use again to modify
+                previous entries (for example if you don't know what the test serial number is, and then you find
+                out and want to validate your data) and, most importantly, add subsequent entries that maintain
+                a temporal relationship (for example if you repeat the test and change your status from infected
+                to immune). Last but not least, we provide a neat **live data visualization* page, where anyone
+                can see how their contribution is helping to fight the Covid19 crisis.</p>
+
+        </div>
+
+        <div class="row justify-content-center no-gutters">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ url_for('static', filename='img/osi_greyscale_for_use_on_dark_backgrounds_logo_0.png') }}" alt="">
+            </div>
+            <div class="col-lg-6 order-lg-first" >
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Open source</h4>
+                            <p class="mb-0 text-white-50">Our platform is fully open source and can be view or used by anyone.
+                                External auditing of the platform allows to increase the trust in the repository showing that
+                                the data is kept save and anonymous.</p>
+                            <hr class="d-none d-lg-block mb-0 mr-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ url_for('static', filename='img/ssl.png') }}" alt="">
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Encrypted</h4>
+                            <p class="mb-0 text-white-50">Your data is transmitted trough SSL.</p>
+                            <hr class="d-none d-lg-block mb-0 ml-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center no-gutters">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ url_for('static', filename='img/swiss.png') }}" alt="">
+            </div>
+            <div class="col-lg-6 order-lg-first" >
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Your data in Switzerland</h4>
+                            <p class="mb-0 text-white-50">Your data is kept on servers hosted in Switzerland. This demo server
+                                is actually hosted on ETHZ servers.</p>
+                            <hr class="d-none d-lg-block mb-0 mr-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <div class="col-lg-6">
+                <img class="img-center" src="{{ url_for('static', filename='img/speed.png') }}" alt="">
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Quick setup</h4>
+                            <p class="mb-0 text-white-50">The platform is very easy to setup, maintain, extend and use.</p>
+                            <hr class="d-none d-lg-block mb-0 ml-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
