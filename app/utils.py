@@ -2,11 +2,12 @@ import json
 import os
 import pandas as pd
 import pgeocode
+import app
 
 
 def get_data_from_json():
 
-    directory = os.getcwd() + '/app/raw-data'
+    directory = os.environ['APP_BASE_DIR'] + '/app/raw-data'
     cnt = 0
     for filename in os.listdir(directory):
         if filename.endswith(".json") and cnt == 0:

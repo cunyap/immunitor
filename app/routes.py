@@ -31,16 +31,23 @@ def success():
 
 
 def create_infofile(ID):
-    f = open("app/static/{}.json".format(ID.decode("utf-8")), "w+")
+    f = open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID.decode("utf-8")), "w+")
     f.write('{}')
 
 
 def save_info(ID, key, value):
-    with open("app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
-        comments = json.load(file)
-    comments[key] = value
-    with open("app/static/{}.json".format(ID.decode("utf-8")), 'w+') as outfile:
-        json.dump(comments, outfile)
+    if type(ID) is not int:
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
+            comments = json.load(file)
+        comments[key] = value
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID.decode("utf-8")), 'w+') as outfile:
+            json.dump(comments, outfile)
+    else:
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID), 'r') as file:
+            comments = json.load(file)
+        comments[key] = value
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID), 'w+') as outfile:
+            json.dump(comments, outfile)
 
 
 @app.route('/returning', methods=('GET', 'POST'))
@@ -176,21 +183,9 @@ def index():
     global ID
     if form.validate_on_submit():
         if 'confirm' in request.form:
-            file1 = open(
-                "C:\\Users\\Localadmin\\ownCloud\\SoftwareDev\\Python\\flask_demo\\codevscovid19_app\\app\\myfile.txt",
-                "w+")
-            # \n is placed to indicate EOL (End of Line)
-            file1.write("Hello \n")
-            file1.writelines(form.image.data)
-            file1.close()
             file = form.image.data
             # filename = secure_filename(file.filename)
             if file is not None:
-                file1 = open("C:\\Users\\Localadmin\\ownCloud\\SoftwareDev\\Python\\flask_demo\\codevscovid19_app\\app\\myfile.txt", "w+")
-                # \n is placed to indicate EOL (End of Line)
-                file1.write("Hello \n")
-                file1.writelines(file)
-                file1.close()
                 # d = decode(Image.open(file))
                 # ID = str(d[0].data)
                 # print(ID)
@@ -230,8 +225,13 @@ def info():
 
 
 def get_data(ID):
-    with open("app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
-        comments = json.load(file)
+    if type(ID) is not int:
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID.decode("utf-8")), 'r') as file:
+            comments = json.load(file)
+    else:
+        with open(os.environ['APP_BASE_DIR'] + "/app/static/{}.json".format(ID), 'r') as file:
+            comments = json.load(file)
+
     o = establish_db_connection()
     perm_id = register_new_case(o=o, data=comments)
     return perm_id
