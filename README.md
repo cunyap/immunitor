@@ -47,7 +47,7 @@ The main advantages would be:
 * Tests used in research i.e for broad studies can be batch quantified quickly without any sophisitcated and expensive device or equipment
 * __Results are directly available in digital format__ and can be combined with results from other tests.
 
-![POC test proposal](app\static\img\POCT_Package_Porposal.jpg)
+![POC test proposal](app/static/img/POCT_Package_Porposal.jpg)
 
 
 
