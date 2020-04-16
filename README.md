@@ -18,16 +18,38 @@ This platform has the potential to be a powerful tool for researchers to obtain 
 
 
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/TxigEeq4o9o/0.jpg)](http://www.youtube.com/watch?v=TxigEeq4o9o "Immunitor")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/PbIC1CnMSFY/0.jpg)](http://www.youtube.com/watch?v=PbIC1CnMSFY "Immunitor")
 
 
 
 ## Immunitor could be useful for:
 
-- citizens to visualize data concerning the pandemic
-- researchers for having a fast, reliable and safe platform to aggregate validated data in an anonymized form. Additionally, an automated data analysis pipeline can be setup to display information in real time.
-- media for having a central source of data which can be retrieved automatically.
-- authorities to track the development of the crisis and the increasing number of people becoming immune in real time
+- __citizens__ to visualize data concerning the pandemic
+
+- __researchers__ for having a fast, reliable and safe platform to aggregate validated data in an anonymized form. Additionally, an automated data analysis pipeline can be setup to display information in real time.
+
+- __authorities__ and __organisations__ to track the development of the crisis and the increasing number of people becoming immune in real time
+
+- __media__ for having a central source of data which can be retrieved automatically.
+
+  
+
+
+
+### Design proposal for COVID19 POC test manafacturer
+
+We want to _facilitate an automated readout_ of upcoming SARS COVID19 Point Of Care Tests (POCT). Therefore we propose to encode details of the test kit in a machine readable format (i.e datamatrix)  as well as highlighting the read out zone with colored frame and Quick Response (QR) codes to better detects its location once a picture is taken from the test.
+
+The main advantages would be:
+
+* __Low additional costs__ for the test while changing the package printings slightly as brand names and similar anyway gets printed onto the package.
+* __Everyone__ with a smartphone can take a picture of the test and __quantify the result automatically__ using our website or with an app.
+* Tests used in research i.e for broad studies can be batch quantified quickly without any sophisitcated and expensive device or equipment
+* __Results are directly available in digital format__ and can be combined with results from other tests.
+
+![POC test proposal](app\static\img\POCT_Package_Porposal.jpg)
+
+
 
 
 
